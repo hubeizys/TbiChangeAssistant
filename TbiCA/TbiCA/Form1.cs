@@ -50,5 +50,30 @@ namespace TbiCA
                 this.xtraTabControl1.SelectedTabPageIndex = 1;
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+           if( openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+
+            }
+        }
+
+        private void simpleButton2_Click(object sender, EventArgs e)
+        {
+            if(config_dlg.ShowDialog() == DialogResult.OK)
+            {
+                // MessageBox.Show(config_dlg.FileName);
+                this.default_label.Text = config_dlg.FileName;
+            }
+        }
+
+        private void simpleButton4_Click(object sender, EventArgs e)
+        {
+            if (dst_file_dlg.ShowDialog() == DialogResult.OK)
+            {
+                sea
+            }
+       }
     }
 }
