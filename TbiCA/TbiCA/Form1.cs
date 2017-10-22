@@ -205,7 +205,7 @@ namespace TbiCA
         public void SaveCSV(DataTable dt, string fileName)
         {
             FileStream fs = new FileStream(fileName, System.IO.FileMode.Append, System.IO.FileAccess.Write);
-            StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.Default);
+            StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.UTF8);
             string data = "";
             //写出列名称
             for (int i = 0; i < dt.Columns.Count; i++)
@@ -213,7 +213,7 @@ namespace TbiCA
                 data += dt.Columns[i].ColumnName.ToString();
                 if (i < dt.Columns.Count - 1)
                 {
-                    data += ",";
+                    data += "   ";
                 }
             }
             sw.WriteLine(data);
@@ -226,7 +226,7 @@ namespace TbiCA
                     data += dt.Rows[i][j].ToString();
                     if (j < dt.Columns.Count - 1)
                     {
-                        data += ",";
+                        data += "   ";
                     }
                 }
                 sw.WriteLine(data);

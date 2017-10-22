@@ -116,8 +116,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="template.csv">
+    <None Include="..\..\..\Desktop\template.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Link>template.csv</Link>
     </None>
   </ItemGroup>
   <ItemGroup>
