@@ -63,7 +63,7 @@ namespace TbiCA
         {
             //MessageBox.Show(ribbonControl1.SelectedPage.Name);    
 
-            if(ribbonControl1.SelectedPage.PageIndex == 0)
+            if (ribbonControl1.SelectedPage.PageIndex == 0)
             {
                 this.xtraTabControl1.SelectedTabPageIndex = 0;
             }
@@ -76,7 +76,7 @@ namespace TbiCA
 
         private void simpleButton2_Click(object sender, EventArgs e)
         {
-            if(config_dlg.ShowDialog() == DialogResult.OK)
+            if (config_dlg.ShowDialog() == DialogResult.OK)
             {
                 // MessageBox.Show(config_dlg.FileName);
                 this.default_label.Text = config_dlg.FileName;
@@ -89,11 +89,11 @@ namespace TbiCA
             {
                 searchLookUpEdit1.Properties.NullValuePrompt = dst_dlg.SelectedPath;
             }
-       }
+        }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if(add_dst_dir.ShowDialog() == DialogResult.OK)
+            if (add_dst_dir.ShowDialog() == DialogResult.OK)
             {
                 searchLookUpEdit3.Properties.NullText = add_dst_dir.SelectedPath;
             }
@@ -134,7 +134,7 @@ namespace TbiCA
                     dt.Rows.Add(dr);
                     searchLookUpEdit2.Properties.DataSource = dt;
                 }*/
-                using (NetUtilityLib.ExcelHelper exc = new NetUtilityLib.ExcelHelper("src.xlsx")) 
+                using (NetUtilityLib.ExcelHelper exc = new NetUtilityLib.ExcelHelper("src.xlsx"))
                 {
                     DataTable dt = exc.ExcelToDataTable("sheet1", true);
                     DataRow dr = dt.NewRow();
@@ -144,9 +144,9 @@ namespace TbiCA
                     exc.DataTableToExcel(dt, "sheet1", true);
                     searchLookUpEdit2.Properties.DataSource = dt;
                 }
-                
+
             }
-            catch(Exception err)
+            catch (Exception err)
             {
                 MessageBox.Show(err.Message);
             }
@@ -205,7 +205,7 @@ namespace TbiCA
         public void SaveCSV(DataTable dt, string fileName)
         {
             FileStream fs = new FileStream(fileName, System.IO.FileMode.Append, System.IO.FileAccess.Write);
-            StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.UTF8);
+            StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.Unicode);
             string data = "";
             //写出列名称
             for (int i = 0; i < dt.Columns.Count; i++)
@@ -213,10 +213,12 @@ namespace TbiCA
                 data += dt.Columns[i].ColumnName.ToString();
                 if (i < dt.Columns.Count - 1)
                 {
-                    data += "   ";
+                    data += "\t";
                 }
             }
-            sw.WriteLine(data);
+            // sw.WriteLine(data);
+            sw.Write(data);
+            sw.Write("\n");
             //写出各行数据
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -226,10 +228,11 @@ namespace TbiCA
                     data += dt.Rows[i][j].ToString();
                     if (j < dt.Columns.Count - 1)
                     {
-                        data += "   ";
+                        data += "\t";
                     }
                 }
-                sw.WriteLine(data);
+                sw.Write(data);
+                sw.Write("\n");
             }
             sw.Close();
             fs.Close();
@@ -259,7 +262,7 @@ namespace TbiCA
             int line = 0;
             while ((strLine = sr.ReadLine()) != null)
             {
-                
+
                 if (line == 2)
                 {
                     //aryLine = strLine.Split('\\');
@@ -276,7 +279,7 @@ namespace TbiCA
                 if (IsFirst == true)
                 {
                     IsFirst = false;
-                    
+
                     //创建列
                     for (int i = 0; i < columnCount; i++)
                     {
@@ -375,7 +378,7 @@ namespace TbiCA
                         Console.WriteLine("src_2_pic== !{0}!    == ", src_2_pic[0]);
 
                         // 根据 用户填的名字  生产一个 文件名
-                        string real_file_name = file_path + "\\" + textEdit1.Text+ "\\"+ "web" + "\\" + src_2_pic[0] + ".png";
+                        string real_file_name = file_path + "\\" + textEdit1.Text + "\\" + "web" + "\\" + src_2_pic[0] + ".png";
                         will_create_arr_pngs.Add(real_file_name);
 
                         string old_file_name = file_path + "\\" + src_2_pic[0] + ".tbi";
@@ -395,7 +398,7 @@ namespace TbiCA
                     // 1.2  并把文件放入指定的文件夹中
                     #region 放入指定的文件夹中
 
-                    string real_dir = file_path + "\\" + textEdit1.Text + "\\" + "web" + "\\" ;
+                    string real_dir = file_path + "\\" + textEdit1.Text + "\\" + "web" + "\\";
                     if (!Directory.Exists(real_dir))
                     {
                         Directory.CreateDirectory(real_dir);
@@ -418,7 +421,7 @@ namespace TbiCA
                     //old_dscription = old_dscription.Replace();
                     old_dscription = old_dscription.Trim();
                     MessageBox.Show(old_dscription);
-                   
+
                     WebBrowser wb2 = new WebBrowser();
                     wb2.Navigate("about:blank");
                     wb2.Document.Write(old_dscription);
@@ -437,8 +440,8 @@ namespace TbiCA
                     foreach (HtmlElement et in doc2.GetElementsByTagName("body"))
                     {
                         //Console.WriteLine(et.InnerHtml);
-                       
-                        dr["宝贝描述"] += et.InnerHtml; 
+
+                        dr["宝贝描述"] += et.InnerHtml;
                     }
                     MessageBox.Show(dr["宝贝描述"].ToString());
                     #endregion
@@ -505,7 +508,7 @@ namespace TbiCA
             //img_ele.InnerText = "sdasdsd";
             doc2.Body.AppendChild(img_ele);
 
-            foreach (HtmlElement et  in doc2.GetElementsByTagName("body"))
+            foreach (HtmlElement et in doc2.GetElementsByTagName("body"))
             {
                 Console.WriteLine(et.InnerHtml);
             }
