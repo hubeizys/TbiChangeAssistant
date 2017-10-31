@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
@@ -61,8 +60,16 @@
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.progressBarControl1 = new DevExpress.XtraEditors.ProgressBarControl();
             this.simpleButton4 = new DevExpress.XtraEditors.SimpleButton();
+            this.xtraTabPage3 = new DevExpress.XtraTab.XtraTabPage();
+            this.wb_willdone = new System.Windows.Forms.WebBrowser();
+            this.labelControl9 = new DevExpress.XtraEditors.LabelControl();
+            this.lc_result = new DevExpress.XtraEditors.LabelControl();
+            this.simpleButton5 = new DevExpress.XtraEditors.SimpleButton();
+            this.te_willdonefile = new DevExpress.XtraEditors.TextEdit();
+            this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
             this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.button2 = new System.Windows.Forms.Button();
             this.searchLookUpEdit3 = new DevExpress.XtraEditors.SearchLookUpEdit();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -73,14 +80,15 @@
             this.searchLookUpEdit2View = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.button1 = new System.Windows.Forms.Button();
-            this.popupMenu1 = new DevExpress.XtraBars.PopupMenu(this.components);
+            this.popupMenu1 = new DevExpress.XtraBars.PopupMenu();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.config_dlg = new System.Windows.Forms.OpenFileDialog();
             this.dst_file_dlg = new System.Windows.Forms.OpenFileDialog();
             this.dst_dlg = new System.Windows.Forms.FolderBrowserDialog();
             this.add_src_dir = new System.Windows.Forms.FolderBrowserDialog();
             this.add_dst_dir = new System.Windows.Forms.FolderBrowserDialog();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.ofd_2willdone = new System.Windows.Forms.OpenFileDialog();
+            this.textBox_result = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
             this.xtraTabControl1.SuspendLayout();
             this.xtraTabPage1.SuspendLayout();
@@ -92,6 +100,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.progressBarControl1.Properties)).BeginInit();
+            this.xtraTabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.te_willdonefile.Properties)).BeginInit();
             this.xtraTabPage2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit3.Properties)).BeginInit();
@@ -112,6 +122,7 @@
             this.xtraTabControl1.TabIndex = 1;
             this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage1,
+            this.xtraTabPage3,
             this.xtraTabPage2});
             this.xtraTabControl1.Selected += new DevExpress.XtraTab.TabPageEventHandler(this.xtraTabControl1_Selected);
             // 
@@ -120,7 +131,7 @@
             this.xtraTabPage1.Controls.Add(this.tableLayoutPanel1);
             this.xtraTabPage1.Name = "xtraTabPage1";
             this.xtraTabPage1.Size = new System.Drawing.Size(737, 411);
-            this.xtraTabPage1.Text = "xtraTabPage1";
+            this.xtraTabPage1.Text = "第一步处理";
             // 
             // tableLayoutPanel1
             // 
@@ -453,12 +464,77 @@
             this.simpleButton4.Text = "simpleButton4";
             this.simpleButton4.Click += new System.EventHandler(this.simpleButton4_Click);
             // 
+            // xtraTabPage3
+            // 
+            this.xtraTabPage3.Controls.Add(this.textBox_result);
+            this.xtraTabPage3.Controls.Add(this.wb_willdone);
+            this.xtraTabPage3.Controls.Add(this.labelControl9);
+            this.xtraTabPage3.Controls.Add(this.lc_result);
+            this.xtraTabPage3.Controls.Add(this.simpleButton5);
+            this.xtraTabPage3.Controls.Add(this.te_willdonefile);
+            this.xtraTabPage3.Controls.Add(this.labelControl6);
+            this.xtraTabPage3.Name = "xtraTabPage3";
+            this.xtraTabPage3.Size = new System.Drawing.Size(737, 411);
+            this.xtraTabPage3.Text = "第二步处理";
+            // 
+            // wb_willdone
+            // 
+            this.wb_willdone.Location = new System.Drawing.Point(480, 237);
+            this.wb_willdone.MinimumSize = new System.Drawing.Size(20, 20);
+            this.wb_willdone.Name = "wb_willdone";
+            this.wb_willdone.Size = new System.Drawing.Size(250, 167);
+            this.wb_willdone.TabIndex = 5;
+            // 
+            // labelControl9
+            // 
+            this.labelControl9.Location = new System.Drawing.Point(131, 116);
+            this.labelControl9.Name = "labelControl9";
+            this.labelControl9.Size = new System.Drawing.Size(48, 14);
+            this.labelControl9.TabIndex = 4;
+            this.labelControl9.Text = "处理结果";
+            // 
+            // lc_result
+            // 
+            this.lc_result.Appearance.ForeColor = System.Drawing.Color.Silver;
+            this.lc_result.Location = new System.Drawing.Point(203, 116);
+            this.lc_result.Name = "lc_result";
+            this.lc_result.Size = new System.Drawing.Size(24, 14);
+            this.lc_result.TabIndex = 3;
+            this.lc_result.Text = "结果";
+            // 
+            // simpleButton5
+            // 
+            this.simpleButton5.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton5.Image")));
+            this.simpleButton5.Location = new System.Drawing.Point(203, 64);
+            this.simpleButton5.Name = "simpleButton5";
+            this.simpleButton5.Size = new System.Drawing.Size(81, 43);
+            this.simpleButton5.TabIndex = 2;
+            this.simpleButton5.Text = "处理";
+            this.simpleButton5.Click += new System.EventHandler(this.simpleButton5_Click);
+            // 
+            // te_willdonefile
+            // 
+            this.te_willdonefile.Location = new System.Drawing.Point(203, 18);
+            this.te_willdonefile.MenuManager = this.ribbonControl1;
+            this.te_willdonefile.Name = "te_willdonefile";
+            this.te_willdonefile.Size = new System.Drawing.Size(273, 20);
+            this.te_willdonefile.TabIndex = 1;
+            this.te_willdonefile.Click += new System.EventHandler(this.te_willdonefile_Click);
+            // 
+            // labelControl6
+            // 
+            this.labelControl6.Location = new System.Drawing.Point(119, 21);
+            this.labelControl6.Name = "labelControl6";
+            this.labelControl6.Size = new System.Drawing.Size(60, 14);
+            this.labelControl6.TabIndex = 0;
+            this.labelControl6.Text = "待处理文件";
+            // 
             // xtraTabPage2
             // 
             this.xtraTabPage2.Controls.Add(this.tableLayoutPanel2);
             this.xtraTabPage2.Name = "xtraTabPage2";
             this.xtraTabPage2.Size = new System.Drawing.Size(737, 411);
-            this.xtraTabPage2.Text = "xtraTabPage2";
+            this.xtraTabPage2.Text = "默认选项";
             // 
             // tableLayoutPanel2
             // 
@@ -491,6 +567,15 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(737, 411);
             this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // webBrowser1
+            // 
+            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webBrowser1.Location = new System.Drawing.Point(254, 303);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.Size = new System.Drawing.Size(379, 85);
+            this.webBrowser1.TabIndex = 10;
             // 
             // button2
             // 
@@ -625,14 +710,18 @@
             // 
             this.dst_file_dlg.FileName = "dst";
             // 
-            // webBrowser1
+            // ofd_2willdone
             // 
-            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser1.Location = new System.Drawing.Point(254, 303);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(379, 85);
-            this.webBrowser1.TabIndex = 10;
+            this.ofd_2willdone.RestoreDirectory = true;
+            // 
+            // textBox_result
+            // 
+            this.textBox_result.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox_result.Location = new System.Drawing.Point(11, 136);
+            this.textBox_result.Multiline = true;
+            this.textBox_result.Name = "textBox_result";
+            this.textBox_result.Size = new System.Drawing.Size(693, 275);
+            this.textBox_result.TabIndex = 6;
             // 
             // Form1
             // 
@@ -658,6 +747,9 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.progressBarControl1.Properties)).EndInit();
+            this.xtraTabPage3.ResumeLayout(false);
+            this.xtraTabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.te_willdonefile.Properties)).EndInit();
             this.xtraTabPage2.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit3.Properties)).EndInit();
@@ -722,6 +814,15 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
         private System.Windows.Forms.WebBrowser webBrowser1;
+        private DevExpress.XtraTab.XtraTabPage xtraTabPage3;
+        private DevExpress.XtraEditors.LabelControl labelControl6;
+        private DevExpress.XtraEditors.TextEdit te_willdonefile;
+        private DevExpress.XtraEditors.SimpleButton simpleButton5;
+        private DevExpress.XtraEditors.LabelControl lc_result;
+        private DevExpress.XtraEditors.LabelControl labelControl9;
+        private System.Windows.Forms.OpenFileDialog ofd_2willdone;
+        private System.Windows.Forms.WebBrowser wb_willdone;
+        private System.Windows.Forms.TextBox textBox_result;
     }
 }
 

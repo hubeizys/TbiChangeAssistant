@@ -7,6 +7,8 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using TestGetFiles;
@@ -512,6 +514,153 @@ namespace TbiCA
             {
                 Console.WriteLine(et.InnerHtml);
             }
+        }
+
+        private void te_willdonefile_Click(object sender, EventArgs e)
+        {
+            if (ofd_2willdone.ShowDialog() == DialogResult.OK)
+            {
+                //Console.WriteLine();
+                MessageBox.Show(ofd_2willdone.FileName);
+                te_willdonefile.Text = ofd_2willdone.FileName;
+            }
+        }
+
+        private void simpleButton5_Click(object sender, EventArgs e)
+        {
+
+            Thread t = new Thread(()=> {
+                //try
+                //{
+                    // 1.0  读入 配置文件,  根据CVS 中的 picture 找到 需要处理的图片
+                    string ext_name = Path.GetExtension(te_willdonefile.Text);
+                    if (ext_name != ".csv")
+                    {
+                        MessageBox.Show("文件格式不正确");
+                        return;
+                    }
+                    DataTable dt = this.OpenCSV(te_willdonefile.Text);
+
+
+                    //Console.WriteLine( dt.Rows[0]["宝贝描述"].ToString());
+
+
+
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        string _l_baobeimiaoshu = "";
+
+                        _l_baobeimiaoshu = dr["宝贝描述"].ToString();
+                        //Console.WriteLine(dr["宝贝描述"].ToString());
+
+                        // _l_baobeimiaoshu.Split("</table>");
+                        string[] sarr = Regex.Split(_l_baobeimiaoshu, "</table>");
+
+                        /*
+                        foreach (string i in sarr)
+                        {
+                            Console.WriteLine("\n aa= " + i);
+                        }*/
+
+
+
+                        #region 截取dom树 并进行md5 加密
+                        wb_willdone.Invoke(new Action(
+                            () =>
+                            {
+                                WebBrowser wb_willdone = new WebBrowser();
+                                wb_willdone.Navigate("about:blank");
+                                try { string _l_willdonstr = sarr[1];
+                                    _l_willdonstr = _l_willdonstr.Replace("\"\"", "\"");
+                                    //Console.WriteLine("_l_willdonstr =========  " + _l_willdonstr);
+                                    textBox_result.BeginInvoke(new Action(() => {
+                                        textBox_result.ForeColor = Color.Black;
+                                        textBox_result.AppendText(DateTime.Now.ToString("HH:mm:ss  "));
+                                        textBox_result.AppendText("正在处理dom =========  " + _l_willdonstr);
+                                        textBox_result.AppendText(Environment.NewLine);
+                                        textBox_result.ScrollToCaret();
+                                    }));
+                                    wb_willdone.Document.Write(_l_willdonstr);
+                                    wb_willdone.DocumentText = _l_willdonstr;
+                                }
+                                catch (Exception err)
+                                {
+                                    int cur_line = (dt.Rows.IndexOf(dr) + 4);
+                                    MessageBox.Show("图片描述的格式似乎不正确" +err.Message + "第： " + cur_line + "行");
+                                }
+                                
+
+                                HtmlDocument doc_willdone = wb_willdone.Document;
+                                string _temp_one_line = "";
+                                int temp_num = 0;
+                                foreach (HtmlElement et in doc_willdone.GetElementsByTagName("img"))
+                                {
+                                    string _tmp_src = et.GetAttribute("src");
+                                    //Console.WriteLine(_tmp_src + "md5: =" + System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(_tmp_src, "MD5"));
+
+                                    textBox_result.BeginInvoke(new Action(() => {
+                                        textBox_result.ForeColor = Color.Red;
+                                        textBox_result.AppendText(DateTime.Now.ToString("HH:mm:ss  "));
+                                        textBox_result.AppendText("正在处理的图片是 =========  " + _tmp_src);
+                                        textBox_result.AppendText(Environment.NewLine);
+                                        textBox_result.ScrollToCaret();
+                                    }));
+                                    string _temp_md5 = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(_tmp_src, "MD5");
+                                    _temp_one_line += string.Format("{0}:1:{1}:|{2};", _temp_md5, temp_num++, _tmp_src);
+                                }
+
+                                dr["新图片"] = _temp_one_line;
+                                // Console.WriteLine("_temp_one_line ===== " + _temp_one_line);
+                                textBox_result.BeginInvoke(new Action(() => {
+                                    textBox_result.ForeColor = Color.Green;
+                                    textBox_result.AppendText(DateTime.Now.ToString("HH:mm:ss  "));
+                                    textBox_result.AppendText("合成的新图片为 =========  " + _temp_one_line);
+                                    textBox_result.AppendText(Environment.NewLine);
+                                    textBox_result.ScrollToCaret();
+                                }));
+                                try
+                                {
+                                    #endregion
+                                    lc_result.Invoke(new Action(() =>
+                                    {
+                                        lc_result.Text = string.Format("已经完成 {0}/{1}", dt.Rows.IndexOf(dr), dt.Rows.Count);
+                                        lc_result.Refresh();
+                                    }));
+                                }
+                                catch (Exception err)
+                                {
+                                    Console.WriteLine("aaaa ", err.Message);
+                                }
+
+                            }
+                            ));
+
+                    }
+
+                    string dst_temp_dir = Path.GetDirectoryName(te_willdonefile.Text);
+                    string goal_filename = Path.GetRandomFileName();
+                    string dst_temp_file = dst_temp_dir + "\\" + "新转化" + goal_filename + ".csv";
+
+                    Console.WriteLine("dst_temp_file === " + dst_temp_file);
+
+                    if (!Directory.Exists(dst_temp_dir))
+                    {
+                        Directory.CreateDirectory(dst_temp_dir);
+                    }
+                    System.IO.File.Copy("template.csv", dst_temp_file);
+
+                    // 2.2 转好的datatable 放进去
+                    this.SaveCSV(dt, dst_temp_file);
+                    /*
+                }
+
+                catch (Exception err)
+                {
+                    MessageBox.Show("err : " + err.Message);
+                }*/
+            });
+            t.Start();
+            
         }
     }
 }
