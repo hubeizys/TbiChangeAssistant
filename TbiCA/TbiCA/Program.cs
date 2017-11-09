@@ -16,7 +16,7 @@ namespace TbiCA
         static void Main()
         {
 
-            DateTime dt = Convert.ToDateTime("2017-11-5 12:22:05");
+            DateTime dt = Convert.ToDateTime("2017-11-10 12:22:05");
             DateTime nowt = DateTime.Now;//现在的时间
             if (dt <= nowt)
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NPOI.SS.UserModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -19,6 +20,9 @@ namespace TbiCA
     {
         public Form1()
         {
+            //IWorkbook wb;
+            //FileStream fs = File.OpenWrite(filePath);
+
             InitializeComponent();
         }
 
