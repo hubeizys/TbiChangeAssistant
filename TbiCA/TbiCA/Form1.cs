@@ -308,7 +308,11 @@ namespace TbiCA
             return dt;
         }
 
-
+        /// <summary>
+        ///  第一步转化
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void simpleButton3_Click(object sender, EventArgs e)
         {
             string file_path = searchLookUpEdit1.Properties.NullValuePrompt;
@@ -349,7 +353,7 @@ namespace TbiCA
             try
             {
                 //string[] will_create_arr_pngs = { };
-
+                //MessageBox.Show(System.Environment.CurrentDirectory);
 
                 // 1.0  读入 配置文件,  根据CVS 中的 picture 找到 需要处理的图片
                 string ext_name = Path.GetExtension(default_label.Text);
@@ -411,7 +415,8 @@ namespace TbiCA
                     }
                     for (int nn = 0; nn < will_create_arr_pngs.Count; nn++)
                     {
-                        System.IO.File.Copy(old_tbi_list[nn], will_create_arr_pngs[nn]);
+                        if(!File.Exists(will_create_arr_pngs[nn]))
+                        { System.IO.File.Copy(old_tbi_list[nn], will_create_arr_pngs[nn]); }
                     }
 
                     #endregion
@@ -426,14 +431,28 @@ namespace TbiCA
                     old_dscription = old_dscription.Replace("\"", "");
                     //old_dscription = old_dscription.Replace();
                     old_dscription = old_dscription.Trim();
-                    MessageBox.Show(old_dscription);
-
+                    //MessageBox.Show(string.Format( "当前宝贝描述 {0}", old_dscription));
+                    Console.WriteLine(string.Format( "当前宝贝描述 {0}", old_dscription));
                     WebBrowser wb2 = new WebBrowser();
                     wb2.Navigate("about:blank");
                     wb2.Document.Write(old_dscription);
                     wb2.DocumentText = old_dscription;
                     HtmlDocument doc2 = wb2.Document;
 
+
+                    HtmlElement tm_table = doc2.CreateElement("table");
+                    HtmlElement tm_boyd =  doc2.CreateElement("tbody");
+                    HtmlElement temp_tr = doc2.CreateElement("tr");
+                    HtmlElement temp_td = doc2.CreateElement("td");
+                    HtmlElement ding_img = doc2.CreateElement("img");
+                    ding_img.SetAttribute("src", System.Environment.CurrentDirectory + "\\dingti.png");
+                    tm_table.SetAttribute("width","1");
+                    tm_table.SetAttribute("height", "1");
+                    tm_table.AppendChild(tm_boyd);
+                    tm_boyd.AppendChild(temp_tr);
+                    temp_tr.AppendChild(temp_td);
+                    temp_td.AppendChild(ding_img);
+                    doc2.Body.AppendChild(tm_table);
                     for (int nn = 0; nn < will_create_arr_pngs.Count; nn++)
                     {
                         HtmlElement img_ele = doc2.CreateElement("img");
@@ -449,7 +468,12 @@ namespace TbiCA
 
                         dr["宝贝描述"] += et.InnerHtml;
                     }
-                    MessageBox.Show(dr["宝贝描述"].ToString());
+                    string 宝贝描述 = dr["宝贝描述"].ToString();
+                    宝贝描述 = 宝贝描述.Replace("\r\n", "");
+                    dr["宝贝描述"] = 宝贝描述;
+                    //MessageBox.Show("aaaaaa =====  " + 宝贝描述);
+                   
+                    //MessageBox.Show(dr["宝贝描述"].ToString());
                     #endregion
 
                 }
@@ -462,6 +486,10 @@ namespace TbiCA
                 if (!Directory.Exists(dst_temp_dir))
                 {
                     Directory.CreateDirectory(dst_temp_dir);
+                }
+                if (File.Exists(dst_temp_file))
+                {
+                    File.Delete(dst_temp_file);
                 }
                 System.IO.File.Copy("template.csv", dst_temp_file);
 

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.xtraTabControl1 = new DevExpress.XtraTab.XtraTabControl();
             this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
@@ -54,13 +55,14 @@
             this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
-            this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
+            this.lc_jindu = new DevExpress.XtraEditors.LabelControl();
             this.default_label = new DevExpress.XtraEditors.LabelControl();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.progressBarControl1 = new DevExpress.XtraEditors.ProgressBarControl();
             this.simpleButton4 = new DevExpress.XtraEditors.SimpleButton();
             this.xtraTabPage3 = new DevExpress.XtraTab.XtraTabPage();
+            this.textBox_result = new System.Windows.Forms.TextBox();
             this.wb_willdone = new System.Windows.Forms.WebBrowser();
             this.labelControl9 = new DevExpress.XtraEditors.LabelControl();
             this.lc_result = new DevExpress.XtraEditors.LabelControl();
@@ -80,7 +82,7 @@
             this.searchLookUpEdit2View = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.button1 = new System.Windows.Forms.Button();
-            this.popupMenu1 = new DevExpress.XtraBars.PopupMenu();
+            this.popupMenu1 = new DevExpress.XtraBars.PopupMenu(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.config_dlg = new System.Windows.Forms.OpenFileDialog();
             this.dst_file_dlg = new System.Windows.Forms.OpenFileDialog();
@@ -88,7 +90,6 @@
             this.add_src_dir = new System.Windows.Forms.FolderBrowserDialog();
             this.add_dst_dir = new System.Windows.Forms.FolderBrowserDialog();
             this.ofd_2willdone = new System.Windows.Forms.OpenFileDialog();
-            this.textBox_result = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
             this.xtraTabControl1.SuspendLayout();
             this.xtraTabPage1.SuspendLayout();
@@ -385,7 +386,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.simpleButton3);
-            this.panel1.Controls.Add(this.labelControl7);
+            this.panel1.Controls.Add(this.lc_jindu);
             this.panel1.Controls.Add(this.default_label);
             this.panel1.Controls.Add(this.simpleButton2);
             this.panel1.Controls.Add(this.labelControl4);
@@ -408,14 +409,14 @@
             this.simpleButton3.Text = "开始转化";
             this.simpleButton3.Click += new System.EventHandler(this.simpleButton3_Click);
             // 
-            // labelControl7
+            // lc_jindu
             // 
-            this.labelControl7.Appearance.ForeColor = System.Drawing.Color.Silver;
-            this.labelControl7.Location = new System.Drawing.Point(249, 11);
-            this.labelControl7.Name = "labelControl7";
-            this.labelControl7.Size = new System.Drawing.Size(33, 14);
-            this.labelControl7.TabIndex = 9;
-            this.labelControl7.Text = "0/100";
+            this.lc_jindu.Appearance.ForeColor = System.Drawing.Color.Silver;
+            this.lc_jindu.Location = new System.Drawing.Point(249, 11);
+            this.lc_jindu.Name = "lc_jindu";
+            this.lc_jindu.Size = new System.Drawing.Size(33, 14);
+            this.lc_jindu.TabIndex = 9;
+            this.lc_jindu.Text = "0/100";
             // 
             // default_label
             // 
@@ -476,6 +477,15 @@
             this.xtraTabPage3.Name = "xtraTabPage3";
             this.xtraTabPage3.Size = new System.Drawing.Size(737, 411);
             this.xtraTabPage3.Text = "第二步处理";
+            // 
+            // textBox_result
+            // 
+            this.textBox_result.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox_result.Location = new System.Drawing.Point(11, 136);
+            this.textBox_result.Multiline = true;
+            this.textBox_result.Name = "textBox_result";
+            this.textBox_result.Size = new System.Drawing.Size(693, 275);
+            this.textBox_result.TabIndex = 6;
             // 
             // wb_willdone
             // 
@@ -714,15 +724,6 @@
             // 
             this.ofd_2willdone.RestoreDirectory = true;
             // 
-            // textBox_result
-            // 
-            this.textBox_result.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox_result.Location = new System.Drawing.Point(11, 136);
-            this.textBox_result.Multiline = true;
-            this.textBox_result.Name = "textBox_result";
-            this.textBox_result.Size = new System.Drawing.Size(693, 275);
-            this.textBox_result.TabIndex = 6;
-            // 
             // Form1
             // 
             this.AllowFormGlass = DevExpress.Utils.DefaultBoolean.False;
@@ -802,7 +803,7 @@
         private DevExpress.XtraEditors.LabelControl labelControl4;
         private DevExpress.XtraEditors.LabelControl default_label;
         private DevExpress.XtraEditors.SimpleButton simpleButton2;
-        private DevExpress.XtraEditors.LabelControl labelControl7;
+        private DevExpress.XtraEditors.LabelControl lc_jindu;
         private System.Windows.Forms.OpenFileDialog config_dlg;
         private DevExpress.XtraEditors.SimpleButton simpleButton3;
         private DevExpress.XtraEditors.SimpleButton simpleButton4;
